@@ -1,0 +1,28 @@
+{
+  "name": "stream-assert",
+  "version": "0.0.0",
+  "description": "Assertion library for streams",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/floatdrop/stream-assert.git"
+  },
+  "keywords": [
+    "Assert",
+    "stream"
+  ],
+  "author": "Vsevolod Strukchinsky <floatdrop@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/floatdrop/stream-assert/issues"
+  },
+  "homepage": "https://github.com/floatdrop/stream-assert",
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "should": "^4.0.4",
+    "stream-array": "^0.1.3"
+  }
+}
