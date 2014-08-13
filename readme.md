@@ -9,6 +9,9 @@ var array = require('stream-array');
 var assert = require('stream-assert');
 
 array([1, 2, 3])
+	.pipe(assert.first(1))
+	.pipe(assert.second(2))
+	.pipe(assert.nth(2, 3))
 	.pipe(assert.length(1))
 	.on('end', console.log);
 ```
@@ -19,13 +22,23 @@ array([1, 2, 3])
 
 Builder for asserting stream. Constructed stream will emit `error` and `end` on wrong assertion about stream with assertion error as first argument.
 
+#### nth(n, obj)
+
+Verify, that `n` object in stream is deepEqual to `obj`.
+
+#### first(obj)
+> alias to nth(0, obj)
+
+#### second(obj)
+> alias to nth(1, obj)
+
 #### length(len)
 
 Asserting, that length of stream is equal `len` at the end of the stream.
 
 #### contains(obj)
 
-Searches `obj` in stream.
+Searches object in stream that deepEqual to `obj`.
 
 ## License
 
