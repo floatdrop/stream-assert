@@ -1,6 +1,6 @@
 {
   "name": "stream-assert",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Assertion library for streams",
   "main": "index.js",
   "scripts": {
