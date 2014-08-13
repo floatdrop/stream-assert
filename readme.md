@@ -8,9 +8,9 @@ This library under heavy development. API will significally change, be brave to 
 var array = require('stream-array');
 var assert = require('stream-assert');
 
-array([1, 2, 3]).pipe(assert.length(1)).on('error', function (err) {
-	console.log(err);
-});
+array([1, 2, 3])
+	.pipe(assert.length(1))
+	.on('end', console.log);
 ```
 
 ## API
