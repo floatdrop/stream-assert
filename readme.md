@@ -23,10 +23,6 @@ Builder for asserting stream. Constructed stream will emit `error` and `end` on 
 
 Asserting, that length of stream is equal `len` at the end of the stream.
 
-#### first(obj)
-
-Deep equal first object in stream with `obj`.
-
 #### contains(obj)
 
 Searches `obj` in stream.
