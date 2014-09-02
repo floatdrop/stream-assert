@@ -14,9 +14,9 @@ var assert = require('stream-assert');
 var should = require('should');
 
 array([1, 2, 3])
-	.pipe(assert.first(function(data) { should.eql(1); }))
-	.pipe(assert.second(function(data) { should.eql(2); }))
-	.pipe(assert.nth(2, function(data) { should.eql(3); }))
+	.pipe(assert.first(function(data) { data.should.eql(1); }))
+	.pipe(assert.second(function(data) { data.should.eql(2); }))
+	.pipe(assert.nth(2, function(data) { data.should.eql(3); }))
 	.pipe(assert.length(1))
 	.on('end', console.log);
 ```
