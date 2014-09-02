@@ -7,11 +7,12 @@ This library under heavy development. API will significally change, be brave to 
 ```js
 var array = require('stream-array');
 var assert = require('stream-assert');
+var should = require('')
 
 array([1, 2, 3])
-	.pipe(assert.first(1))
-	.pipe(assert.second(2))
-	.pipe(assert.nth(2, 3))
+	.pipe(assert.first(should.eql(1)))
+	.pipe(assert.second(should.eql(2)))
+	.pipe(assert.nth(2, should.eql(3)))
 	.pipe(assert.length(1))
 	.on('end', console.log);
 ```
@@ -20,25 +21,29 @@ array([1, 2, 3])
 
 ### stream-assert
 
-Builder for asserting stream. Constructed stream will emit `error` and `end` on wrong assertion about stream with assertion error as first argument.
+Builder for asserting stream. Constructed stream will emit `end` on wrong assertion about stream with assertion error as first argument.
 
-#### nth(n, obj)
+#### nth(n, assertion)
 
-Verify, that `n` object in stream is deepEqual to `obj`.
+Calls `assertion` function on `nth` element in stream.
 
-#### first(obj)
+#### first(Function)
 > alias to nth(0, obj)
 
-#### second(obj)
+#### second(Function)
 > alias to nth(1, obj)
 
 #### length(len)
 
 Asserting, that length of stream is equal `len` at the end of the stream.
 
-#### contains(obj)
+#### all(assertion)
 
-Searches object in stream that deepEqual to `obj`.
+Checking that all elements in stream pass assertion function.
+
+#### any(assertion)
+
+Checking that at least one of elements in stream pass assertion function.
 
 ## License
 
