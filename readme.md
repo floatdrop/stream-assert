@@ -1,7 +1,5 @@
 # stream-assert [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 
-This library under heavy development. API will significally change, be brave to pull-request your suggestions about it.
-
 ### Assertion library wanted
 
 `assert.first(function(data) { should.eql(1); })` could be `assert.first(should.eql(1))` if only `should` return assert function.
