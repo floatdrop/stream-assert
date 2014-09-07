@@ -52,10 +52,10 @@ Checking that at least one of elements in stream pass assertion function.
 MIT (c) 2014 Vsevolod Strukchinsky
 
 [npm-url]: https://npmjs.org/package/stream-assert
-[npm-image]: https://badge.fury.io/js/stream-assert.png
+[npm-image]: http://img.shields.io/npm/v/stream-assert.svg?style=flat
 
 [travis-url]: http://travis-ci.org/floatdrop/stream-assert
-[travis-image]: https://travis-ci.org/floatdrop/stream-assert.png?branch=master
+[travis-image]: http://img.shields.io/travis/floatdrop/stream-assert.svg?branch=master&style=flat
 
 [depstat-url]: https://david-dm.org/floatdrop/stream-assert
-[depstat-image]: https://david-dm.org/floatdrop/stream-assert.png?theme=shields.io
+[depstat-image]: http://img.shields.io/david/floatdrop/stream-assert.svg?style=flat
