@@ -33,6 +33,10 @@ Calls `assertion` function on `nth` element in stream.
 #### second(Function)
 > alias to nth(1, obj)
 
+#### last(Function)
+
+Calls `assertion` function on the last element in stream.
+
 #### length(len)
 
 Asserting, that length of stream is equal `len` at the end of the stream.
