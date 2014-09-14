@@ -13,6 +13,7 @@ describe('assert piping', function () {
 				done();
 			});
 	});
+	
 	it('should fail with second assertion', function (done) {
 		array([1, 2])
 			.pipe(assert.length(2))
