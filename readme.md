@@ -27,13 +27,13 @@ Builder for asserting stream. Constructed stream will emit `end` on wrong assert
 
 Calls `assertion` function on `nth` element in stream.
 
-#### first(Function)
+#### first(assertion)
 > alias to nth(0, obj)
 
-#### second(Function)
+#### second(assertion)
 > alias to nth(1, obj)
 
-#### last(Function)
+#### last(assertion)
 
 Calls `assertion` function on the last element in stream.
 
