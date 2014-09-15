@@ -20,18 +20,6 @@ function assertStream(options, transform, flush) {
 		});
 	});
 
-	var onceEnd;
-	var _emit = stream.emit;
-	stream.emit = function (event, error) {
-		if (event === 'end') {
-			if (onceEnd) { return; }
-			_emit.call(stream, 'end', error);
-			onceEnd = true;
-		} else {
-			_emit.apply(stream, arguments);
-		}
-	};
-
 	stream.assertion = function (message) {
 		this.emit('assertion', new Error(message));
 	};
