@@ -22,13 +22,13 @@ describe('assert.nth', function () {
 	});
 
 	it('should have first shortcut', function (done) {
-		array([1])
+		array([1, 2, 3])
 			.pipe(assert.first(function (obj) { obj.should.eql(1); }))
 			.pipe(assert.end(done));
 	});
 
 	it('should have second shortcut', function (done) {
-		array([1, 2])
+		array([1, 2, 3])
 			.pipe(assert.second(function (obj) { obj.should.eql(2); }))
 			.pipe(assert.end(done));
 	});

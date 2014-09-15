@@ -40,7 +40,7 @@ assert.any = function (assertion) {
 		cb(null, obj);
 	}, function (cb) {
 		if (!matched) {
-			return this.assertion('Nothing passing assertion'); 
+			return this.assertion('Nothing passing assertion');
 		}
 		cb();
 	});
@@ -101,6 +101,8 @@ assert.nth = function (n, assertion) {
 			} catch (err) {
 				this.assertion(n + ' position is not passing assertion: ' + err.message);
 			}
+		} else {
+			cb(null, obj);
 		}
 	});
 };
