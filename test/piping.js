@@ -10,7 +10,7 @@ describe('assert piping', function () {
 			.pipe(assert.length(2))
 			.on('end', function (err) {
 				should.exist(err);
-				err.message.should.eql('Stream length 2 not equal 1');
+				err.message.should.eql('Expected length 1 is not equal 2');
 				done();
 			});
 	});
@@ -21,7 +21,7 @@ describe('assert piping', function () {
 			.pipe(assert.length(1))
 			.on('end', function (err) {
 				should.exist(err);
-				err.message.should.eql('Stream length 2 not equal 1');
+				err.message.should.eql('Expected length 1 is not equal 2');
 				done();
 			});
 	});

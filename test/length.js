@@ -16,6 +16,7 @@ describe('assert.length', function () {
 			.pipe(assert.length(2))
 			.on('end', function (err) {
 				should.exist(err);
+				err.message.should.eql('Expected length 2 is not equal 1');
 				done();
 			});
 	});

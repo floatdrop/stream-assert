@@ -40,7 +40,7 @@ assert.nth = function (n, assertion) {
 			try {
 				assertion(obj);
 			} catch (err) {
-				this.bubble(new Error('Element on ' + n + ' position is not passing assertion:\n' + err.message));
+				this.bubble(new Error(n + ' position is not passing assertion: ' + err.message));
 				this.emit('close');
 			}
 		}
@@ -64,7 +64,7 @@ assert.last = function (assertion) {
 			assertion(lastItem);
 			this.emit('end');
 		} catch (err) {
-			this.bubble(new Error('Last element is not passing assertion:\n' + err.message));
+			this.bubble(new Error('Last element is not passing assertion: ' + err.message));
 			this.emit('close');
 		}
 	});
@@ -84,7 +84,7 @@ assert.all = function (assertion) {
 		try {
 			assertion(obj);
 		} catch (err) {
-			this.bubble(new Error('Element on ' + i + ' position is not passing assertion:\n' + err.message));
+			this.bubble(new Error('Element on ' + i + ' position is not passing assertion: ' + err.message));
 			this.emit('close');
 		}
 		i++;
@@ -108,7 +108,7 @@ assert.any = function (assertion) {
 		if (this._parentError) { return this.emit('end', this._parentError); }
 
 		if (!matched) {
-			return this.bubble(new Error('Not found any element in stream, that pass assertion'));
+			return this.bubble(new Error('Nothing passing assertion'));
 		}
 		this.emit('end');
 	});
@@ -127,7 +127,7 @@ assert.length = function (expected) {
 		if (typeof expected !== 'function') {
 			assertion = function (data) {
 				if (data !== expected) {
-					throw new Error(data + ' not equal ' + expected);
+					throw new Error(expected + ' is not equal ' + data);
 				}
 			};
 		}
@@ -136,7 +136,7 @@ assert.length = function (expected) {
 			assertion(i);
 			this.emit('end');
 		} catch (err) {
-			this.bubble(new Error( 'Stream length ' + err.message ));
+			this.bubble(new Error('Expected length ' + err.message));
 		}
 	});
 };

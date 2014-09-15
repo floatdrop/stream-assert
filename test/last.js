@@ -14,9 +14,10 @@ describe('assert.last', function () {
 
 	it('should emit end with error on wrong assertion', function (done) {
 		array([1])
-			.pipe(assert.last(to.be.eql(2)))
+			.pipe(assert.last(function (obj) { obj.should.eql(2); }))
 			.on('end', function (err) {
 				should.exist(err);
+				err.message.should.eql('Last element is not passing assertion: expected 1 to equal 2');
 				done();
 			});
 	});
