@@ -9,16 +9,16 @@ describe('assert.any', function () {
 	it('should find matching element in stream', function (done) {
 		array([1, 2])
 			.pipe(assert.any(to.be.eql(2)))
-			.on('end', done);
+			.pipe(assert.end(done));
 	});
 
 	it('should emit end with error on wrong assertion', function (done) {
 		array([1])
 			.pipe(assert.any(function (obj) { obj.should.eql(2); }))
-			.on('end', function (err) {
+			.pipe(assert.end(function (err) {
 				should.exist(err);
 				err.message.should.eql('Nothing passing assertion');
 				done();
-			});
+			}));
 	});
 });

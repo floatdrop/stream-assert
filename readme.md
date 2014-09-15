@@ -15,15 +15,14 @@ array([1, 2, 3])
     .pipe(assert.second(function(data) { data.should.eql(2); }))
     .pipe(assert.nth(2, function(data) { data.should.eql(3); }))
     .pipe(assert.length(1))
-    .pipe(assert.end(console.log)) // One way
-    .on('end', console.log); // Or another
+    .pipe(assert.end(console.log));
 ```
 
 ## API
 
 ### stream-assert
 
-Builder for asserting stream. Constructed stream will emit `end` on wrong assertion about stream with assertion error as first argument.
+Builder for asserting stream.
 
 #### nth(n, assertion)
 

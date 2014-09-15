@@ -8,28 +8,28 @@ describe('assert.nth', function () {
 	it('should check nth object', function (done) {
 		array([1])
 			.pipe(assert.nth(0, function (obj) { obj.should.eql(1); }))
-			.on('end', done);
+			.pipe(assert.end(done));
 	});
 
 	it('should emit error on wrong nth object', function (done) {
 		array([1, 2])
 			.pipe(assert.nth(0, function (obj) { obj.should.eql(2); }))
-			.on('end', function (err) {
+			.pipe(assert.end(function (err) {
 				should.exist(err);
-				err.message.should.eql('0 position is not passing assertion: expected 1 to equal 2')
+				err.message.should.eql('0 position is not passing assertion: expected 1 to equal 2');
 				done();
-			});
+			}));
 	});
 
 	it('should have first shortcut', function (done) {
 		array([1])
 			.pipe(assert.first(function (obj) { obj.should.eql(1); }))
-			.on('end', done);
+			.pipe(assert.end(done));
 	});
 
 	it('should have second shortcut', function (done) {
 		array([1, 2])
 			.pipe(assert.second(function (obj) { obj.should.eql(2); }))
-			.on('end', done);
+			.pipe(assert.end(done));
 	});
 });
