@@ -9,26 +9,43 @@ assert.defaults = {
 
 function assertStream(options, transform, flush) {
 	if (typeof options === 'function') {
-      flush     = transform;
-      transform = options;
-      options   = {};
-    }
+		flush     = transform;
+		transform = options;
+		options   = {};
+	}
 
 	options.highWatermark = options.highWatermark || assert.defaults.highWatermark;
 	options.objectMode = options.objectMode || assert.defaults.objectMode;
 
 	var stream = through(options, transform, flush);
 
+	stream.on('assertion', function (error) {
+		stream._error = error;
+	});
+
 	stream.on('pipe', function (source) {
-		source._piped = true;
-		source.on('error', function (err) {
-			stream._parentError = err;
+		source.on('assertion', function (err) {
+			stream.emit('assertion', err);
 		});
 	});
 
-	stream.bubble = function (err) {
-		this.emit(this._piped ? 'error' : 'end', err);
+	stream.assertion = function (message) {
+		this.emit('assertion', new Error(message));
 	};
+
+	stream._emit = stream.emit;
+	stream.emit = function (event) {
+		if (event === 'end') {
+			var args = Array.prototype.slice.call(arguments);
+			args.push(stream._error);
+			return stream._emit.apply(stream, args);
+		}
+		stream._emit.apply(stream, arguments);
+	};
+
+	stream.on('finish', function () {
+		this.emit('end');
+	});
 
 	return stream;
 }
@@ -39,33 +56,25 @@ assert.nth = function (n, assertion) {
 		if (i === n) {
 			try {
 				assertion(obj);
+				i++;
+				cb(null, obj);
 			} catch (err) {
-				this.bubble(new Error(n + ' position is not passing assertion: ' + err.message));
-				this.emit('close');
+				this.assertion(n + ' position is not passing assertion: ' + err.message);
 			}
 		}
-		i++;
-		this.push(obj);
-		cb();
-	}).on('finish', function () {
-		this.bubble(this._parentError);
 	});
 };
 
 assert.last = function (assertion) {
 	var lastItem;
 	return assertStream(function (obj, enc, cb) {
-		lastItem = obj;
-		this.push(obj);
-		cb();
-	}).on('finish', function () {
-		if (this._parentError) { return this.emit('end', this._parentError); }
+		cb(null, lastItem = obj);
+	}, function (cb) {
 		try {
 			assertion(lastItem);
-			this.emit('end');
+			cb();
 		} catch (err) {
-			this.bubble(new Error('Last element is not passing assertion: ' + err.message));
-			this.emit('close');
+			this.assertion('Last element is not passing assertion: ' + err.message);
 		}
 	});
 };
@@ -83,15 +92,11 @@ assert.all = function (assertion) {
 	return assertStream(function (obj, enc, cb) {
 		try {
 			assertion(obj);
+			i++;
+			cb(null, obj);
 		} catch (err) {
-			this.bubble(new Error('Element on ' + i + ' position is not passing assertion: ' + err.message));
-			this.emit('close');
+			this.assertion('Element on ' + i + ' position is not passing assertion: ' + err.message);
 		}
-		i++;
-		this.push(obj);
-		cb();
-	}).on('finish', function () {
-		this.emit('end', this._parentError);
 	});
 };
 
@@ -104,13 +109,8 @@ assert.any = function (assertion) {
 		} catch (err) { }
 		this.push(obj);
 		cb();
-	}).on('finish', function () {
-		if (this._parentError) { return this.emit('end', this._parentError); }
-
-		if (!matched) {
-			return this.bubble(new Error('Nothing passing assertion'));
-		}
-		this.emit('end');
+	}, function () {
+		if (!matched) { this.assertion('Nothing passing assertion'); }
 	});
 };
 
@@ -118,11 +118,8 @@ assert.length = function (expected) {
 	var i = 0;
 	return assertStream(function (obj, enc, cb) {
 		i++;
-		this.push(obj);
-		cb();
-	}).on('finish', function () {
-		if (this._parentError) { return this.emit('end', this._parentError); }
-
+		cb(null, obj);
+	}, function (cb) {
 		var assertion = expected;
 		if (typeof expected !== 'function') {
 			assertion = function (data) {
@@ -134,22 +131,16 @@ assert.length = function (expected) {
 
 		try {
 			assertion(i);
-			this.emit('end');
+			cb();
 		} catch (err) {
-			this.bubble(new Error('Expected length ' + err.message));
+			this.assertion('Expected length ' + err.message);
 		}
 	});
 };
 
-assert.end = function (cb) {
-	return assertStream(function (obj, enc, cb) {
-		// Dump all the data!
-		cb();
-	})
-	.on('finish', function () {
-		if (cb) { cb(this._parentError); }
-		this.emit('end', this._parentError);
-	});
+assert.end = function (done) {
+	return assertStream(function (obj, enc, cb) { cb(); })
+		.on('end', done || function () {});
 };
 
 module.exports = assert;

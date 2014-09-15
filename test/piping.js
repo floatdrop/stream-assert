@@ -25,4 +25,14 @@ describe('assert piping', function () {
 				done();
 			});
 	});
+
+	it('should support piping after all', function (done) {
+		array([1, 1, 1])
+			.pipe(assert.all(function (obj) { obj.should.eql(1); } ))
+			.pipe(assert.length(3))
+			.on('end', function (err) {
+				should.not.exist(err);
+				done();
+			});
+	});
 });

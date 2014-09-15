@@ -16,7 +16,7 @@ array([1, 2, 3])
     .pipe(assert.nth(2, function(data) { data.should.eql(3); }))
     .pipe(assert.length(1))
     .pipe(assert.end(console.log)) // One way
-    .on('end', console.log) // Or another
+    .on('end', console.log); // Or another
 ```
 
 ## API
