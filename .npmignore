@@ -3,3 +3,5 @@ test
 .travis.yml
 .jshintrc
 .editorconfig
+coverage
+npm-debug.log

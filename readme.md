@@ -1,4 +1,4 @@
-# stream-assert [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
+# stream-assert [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependency Status][depstat-image]][depstat-url]
 
 Assert streams with ease.
 
@@ -61,3 +61,6 @@ MIT (c) 2014 Vsevolod Strukchinsky
 
 [depstat-url]: https://david-dm.org/floatdrop/stream-assert
 [depstat-image]: http://img.shields.io/david/floatdrop/stream-assert.svg?style=flat
+
+[coveralls-url]: https://coveralls.io/r/floatdrop/gulp-bem
+[coveralls-image]: http://img.shields.io/coveralls/floatdrop/gulp-bem.svg?style=flat
