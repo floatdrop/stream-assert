@@ -18,6 +18,11 @@ array([1, 2, 3])
     .pipe(assert.end(console.log));
 ```
 
+## Chaining
+
+Assertions are chained through passing `assertion` from pipe to pipe.
+This means, that __you should not__ place other pass-through streams in between (this can be fixed later).
+
 ## API
 
 ### stream-assert
