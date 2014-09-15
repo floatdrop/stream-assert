@@ -62,5 +62,5 @@ MIT (c) 2014 Vsevolod Strukchinsky
 [depstat-url]: https://david-dm.org/floatdrop/stream-assert
 [depstat-image]: http://img.shields.io/david/floatdrop/stream-assert.svg?style=flat
 
-[coveralls-url]: https://coveralls.io/r/floatdrop/gulp-bem
-[coveralls-image]: http://img.shields.io/coveralls/floatdrop/gulp-bem.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/floatdrop/stream-assert
+[coveralls-image]: http://img.shields.io/coveralls/floatdrop/stream-assert.svg?style=flat
