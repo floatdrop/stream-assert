@@ -20,4 +20,10 @@ describe('assert.length', function () {
 				done();
 			}));
 	});
+
+	it('should accept function as assertion', function (done) {
+		array([1])
+			.pipe(assert.length(function (len) { len.should.eql(1); }))
+			.pipe(assert.end(done));
+	});
 });
