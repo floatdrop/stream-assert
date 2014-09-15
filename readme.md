@@ -15,7 +15,8 @@ array([1, 2, 3])
     .pipe(assert.second(function(data) { data.should.eql(2); }))
     .pipe(assert.nth(2, function(data) { data.should.eql(3); }))
     .pipe(assert.length(1))
-    .on('end', console.log);
+    .pipe(assert.end(console.log)) // One way
+    .on('end', console.log) // Or another
 ```
 
 ## API
@@ -49,6 +50,20 @@ Checking that all elements in stream pass assertion function.
 #### any(assertion)
 
 Checking that at least one of elements in stream pass assertion function.
+
+#### end([cb])
+
+Since streams has internal [buffer and highWatermark](http://nodejs.org/api/stream.html#stream_buffering),
+that stops data flow, when reached — test stream needs a dumping point, that will flush that buffer.
+
+`assert.end` will dump all data to `/dev/null` — so all pipes after this point will not get any data.
+
+### assert.defaults
+Type: `Object`  
+
+Contains defaults, that will be passed to `through` constructor.
+
+ * `highWatermark` — by default, will be equal `16`. If you don't want to use `assert.end`, then you can increase it.
 
 ## License
 

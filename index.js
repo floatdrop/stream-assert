@@ -2,8 +2,22 @@ var through = require('through2');
 
 var assert = {};
 
-function assertStream() {
-	var stream = through.obj.apply(through, arguments);
+assert.defaults = {
+	highWatermark: 16,
+	objectMode: true
+};
+
+function assertStream(options, transform, flush) {
+	if (typeof options === 'function') {
+      flush     = transform;
+      transform = options;
+      options   = {};
+    }
+
+	options.highWatermark = options.highWatermark || assert.defaults.highWatermark;
+	options.objectMode = options.objectMode || assert.defaults.objectMode;
+
+	var stream = through(options, transform, flush);
 
 	stream.on('pipe', function (source) {
 		source._piped = true;
@@ -124,6 +138,17 @@ assert.length = function (expected) {
 		} catch (err) {
 			this.bubble(new Error( 'Stream length ' + err.message ));
 		}
+	});
+};
+
+assert.end = function (cb) {
+	return assertStream(function (obj, enc, cb) {
+		// Dump all the data!
+		cb();
+	})
+	.on('finish', function () {
+		if (cb) { cb(this._parentError); }
+		this.emit('end', this._parentError);
 	});
 };
 
