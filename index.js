@@ -39,7 +39,10 @@ assert.any = function (assertion) {
 		} catch (err) { }
 		cb(null, obj);
 	}, function (cb) {
-		if (!matched) { this.assertion('Nothing passing assertion'); }
+		if (!matched) {
+			return this.assertion('Nothing passing assertion'); 
+		}
+		cb();
 	});
 };
 
