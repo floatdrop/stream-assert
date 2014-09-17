@@ -20,8 +20,8 @@ array([1, 2, 3])
 
 ## Chaining
 
-Assertions are chained through passing `assertion` from pipe to pipe.
-This means, that __you should not__ place other pass-through streams in between (this can be fixed later).
+Assertions are chained through passing `assertion` from pipe to pipe. If you want inject assertions in the middle of pipeline, you can attach `on('assertion')` handler to manualy catch assertions.
+
 
 ## API
 
