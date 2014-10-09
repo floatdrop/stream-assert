@@ -102,6 +102,7 @@ assert.nth = function (n, assertion) {
 				this.assertion(n + ' position is not passing assertion: ' + err.message);
 			}
 		} else {
+			i++;
 			cb(null, obj);
 		}
 	});
