@@ -6,7 +6,7 @@ Assert streams with ease.
 ## Usage
 
 ```js
-var array = require('into-stream');
+var intoStream = require('into-stream');
 var assert = require('stream-assert');
 var is = require('funsert');
 
