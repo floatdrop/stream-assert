@@ -1,19 +1,19 @@
 # stream-assert
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependency Status][depstat-image]][depstat-url]
+[![Build Status][travis-image]][travis-url]
 
 Assert streams with ease.
 
 ## Usage
 
 ```js
-var array = require('stream-array');
+var array = require('into-stream');
 var assert = require('stream-assert');
-var should = require('should');
+var is = require('funsert');
 
-array([1, 2, 3])
-    .pipe(assert.first(function(data) { data.should.eql(1); }))
-    .pipe(assert.second(function(data) { data.should.eql(2); }))
-    .pipe(assert.nth(2, function(data) { data.should.eql(3); }))
+intoStream([1, 2, 3])
+    .pipe(assert.first(is.equal(1)))
+    .pipe(assert.second(is.equal(2)))
+    .pipe(assert.nth(2, is.equal(3)))
     .pipe(assert.length(1))
     .pipe(assert.end(console.log));
 ```
@@ -73,14 +73,5 @@ Contains defaults, that will be passed to `through` constructor.
 
 MIT (c) 2014 Vsevolod Strukchinsky
 
-[npm-url]: https://npmjs.org/package/stream-assert
-[npm-image]: http://img.shields.io/npm/v/stream-assert.svg?style=flat
-
 [travis-url]: http://travis-ci.org/floatdrop/stream-assert
 [travis-image]: http://img.shields.io/travis/floatdrop/stream-assert.svg?branch=master&style=flat
-
-[depstat-url]: https://david-dm.org/floatdrop/stream-assert
-[depstat-image]: http://img.shields.io/david/floatdrop/stream-assert.svg?style=flat
-
-[coveralls-url]: https://coveralls.io/r/floatdrop/stream-assert
-[coveralls-image]: http://img.shields.io/coveralls/floatdrop/stream-assert.svg?style=flat

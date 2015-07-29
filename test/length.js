@@ -1,18 +1,19 @@
 /* global describe, it */
 
-var array = require('stream-array');
-var assert = require('../index.js');
+var intoStream = require('into-stream').obj;
+var assert = require('../');
 var should = require('should');
+var is = require('funsert');
 
 describe('assert.length', function () {
 	it('should validate stream length', function (done) {
-		array([1])
+		intoStream([1])
 			.pipe(assert.length(1))
 			.pipe(assert.end(done));
 	});
 
 	it('should emit end with error on wrong assertion', function (done) {
-		array([1])
+		intoStream([1])
 			.pipe(assert.length(2))
 			.pipe(assert.end(function (err) {
 				should.exist(err);
@@ -22,8 +23,8 @@ describe('assert.length', function () {
 	});
 
 	it('should accept function as assertion', function (done) {
-		array([1])
-			.pipe(assert.length(function (len) { len.should.eql(1); }))
+		intoStream([1])
+			.pipe(assert.length(is.equal(1)))
 			.pipe(assert.end(done));
 	});
 });

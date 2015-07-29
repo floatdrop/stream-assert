@@ -1,11 +1,13 @@
 /* global describe, it */
 
-var array = require('stream-array');
-var assert = require('../index.js');
+var intoStream = require('into-stream').obj;
+var assert = require('../');
 var should = require('should');
+var is = require('funsert');
+
 describe('assert piping', function () {
 	it('should fail with first assertion', function (done) {
-		array([1, 2])
+		intoStream([1, 2])
 			.pipe(assert.length(1))
 			.pipe(assert.length(2))
 			.pipe(assert.end(function (err) {
@@ -16,7 +18,7 @@ describe('assert piping', function () {
 	});
 
 	it('should fail with second assertion', function (done) {
-		array([1, 2])
+		intoStream([1, 2])
 			.pipe(assert.length(2))
 			.pipe(assert.length(1))
 			.pipe(assert.end(function (err) {
@@ -27,8 +29,8 @@ describe('assert piping', function () {
 	});
 
 	it('should support piping after all', function (done) {
-		array([1, 1, 1])
-			.pipe(assert.all(function (obj) { obj.should.eql(1); } ))
+		intoStream([1, 1, 1])
+			.pipe(assert.all(is.equal(1)))
 			.pipe(assert.length(3))
 			.pipe(assert.end(function (err) {
 				should.not.exist(err);
